@@ -1,4 +1,6 @@
-const path = require("path");
+/* const path = require("path"); */
+const { TsconfigPathsPlugin } = require("tsconfig-paths-webpack-plugin");
+
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -7,28 +9,9 @@ module.exports = {
     "@storybook/preset-create-react-app",
   ],
   webpackFinal: async (config) => {
-    /* config.resolve.alias["@components"] = path.resolve(
-      __dirname,
-      "../src/components"
-    );
-    config.resolve.alias["@images"] = path.resolve(
-      __dirname,
-      "../src/assets/images"
-    );
-    config.resolve.extensions.push(".ts", ".tsx");
-    return config; */
-    config.resolve.alias={
-      ...config.resolve.alias,
-      "@components":path.resolve(
-        __dirname,
-        "../src/components"
-      ),
-      "@images":path.resolve(
-        __dirname,
-        "../src/assets/images"
-      )
-    }
-    config.resolve.extensions.push(".ts", ".tsx");
-    return config; 
+    config.resolve.plugins = [
+      new TsconfigPathsPlugin({ extensions: config.resolve.extensions }),
+    ];
+    return config;
   },
 };
