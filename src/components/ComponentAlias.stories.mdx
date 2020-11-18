@@ -1,0 +1,16 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+
+import { MyOtherComponent } from "@components/MyOtherComponent";
+
+<Meta title="MDX/Aliasing component" component={MyOtherComponent} />
+
+export const MyOtherComponentTemplate= (args) => <MyOtherComponent {...args} />
+
+<Canvas>
+  <Story
+    name="Alias with Storybook and components with MDX"
+    args={{ anotherProp: 33 }}
+  >
+    {MyOtherComponentTemplate.bind({})}
+  </Story>
+</Canvas>
